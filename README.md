@@ -1,8 +1,14 @@
 # aws-elasticsearch-snapshot
 David's Cheatsheet on how to take Elasticsearch Snapshot
 
+Resource: [Working with Amazon Elasticsearch Service Index Snapshots](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-snapshots.html#es-managedomains-snapshot-create)
 
-Example Python Script to Pre-sign and Register Bucket
+## Steps
+1) Register bucket with signed requests
+2) Take snapshot of Elasticsearch domain
+3) Restore (Optional)
+
+## Example Python Script to Sign Requests and Register Bucket
 <pre>
 import boto3
 import requests
@@ -15,7 +21,7 @@ service = 'es'
 credentials = boto3.Session().get_credentials()
 awsauth = AWS4Auth(credentials.access_key, credentials.secret_key, region, service, session_token=credentials.token)
 
-# Register repository
+## Register repository
 
 path = '_snapshot/tars-elasticsearch-snapshots-us-west-2' # the Elasticsearch API endpoint
 url = host + path
@@ -77,3 +83,29 @@ print(r.text)
 # print(r.text)
 
 </pre>
+
+
+## Role requirements
+Trust relationship for es.amazonaws.com service
+
+<pre>
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "",
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "es.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+</pre>
+
+## Take snapshot
+
+<pre>
+
+<pre>
