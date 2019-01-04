@@ -115,8 +115,8 @@ Trust relationship for es.amazonaws.com service
 ## Take snapshot
 
 <pre>
-
-<pre>
+TBD
+</pre>
 
 ## Work in Progress
 ===========================
