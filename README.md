@@ -117,3 +117,39 @@ Trust relationship for es.amazonaws.com service
 <pre>
 
 <pre>
+
+## Work in Progress
+===========================
+To manually take a snapshot
+
+   0) document existing ES domain parameters including access policy
+   1) register repository using register-repo.py
+   2) curl -XPUT 'elasticsearch-domain-endpoint/_snapshot/repository/snapshot-name'
+
+===========================
+To see all snapshot repositories
+
+   curl -XGET 'elasticsearch-domain-endpoint/_snapshot?pretty'
+
+===========================
+To verify the state of all snapshots of your domain
+
+   curl -XGET 'elasticsearch-domain-endpoint/_snapshot/repository/_all?pretty'
+
+
+===========================
+To restore all snapshots to a new domain
+
+   0) Create new domain with similar ES domain parameters including access policy
+      where the access-policy uses the name of the new domain instead of the old.
+      
+      Don't blindly copy/paste an access policy from one ES domain to the new one.
+
+   1) Register repository with new domain using register-repo-with-new-domain.py
+
+   2) Use the restore-snapshot.py script to restore ES domain.
+    
+   3) If you get error 'cannot restore index [.kibana] because it's open' follow
+      instructions here:
+
+      https://aws.amazon.com/premiumsupport/knowledge-center/elasticsearch-kibana-error/
