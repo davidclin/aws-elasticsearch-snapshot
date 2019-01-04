@@ -4,9 +4,17 @@ David's Cheatsheet on how to take Elasticsearch Snapshot
 Resource: [Working with Amazon Elasticsearch Service Index Snapshots](https://docs.aws.amazon.com/elasticsearch-service/latest/developerguide/es-managedomains-snapshots.html#es-managedomains-snapshot-create)
 
 ## Steps
-1) Register bucket with signed requests
+1) Send a signed request to register the snapshot directory
 2) Take snapshot of Elasticsearch domain
 3) Restore (Optional)
+
+## Requirements
+1) The host where Python script and curl command(s) get invoked must have IP connectivity to the ES endpoint.
+   If the host is an EC2 instance on a private subnet, you will need to route requests through a NAT gateway and permit the NAT gateway's public IP in the ES domain's access policy.
+   If the host is an EC2 instance with a public IP address, you will need to permit the public IP address of the instance in the ES domain's access policy. 
+   If the host is behind a VPN firewall, you will need to permit the public IP address of the firewall in the ES domain's access policy.
+   
+2) Role must have S3 permissions among other 
 
 ## Example Python Script to Sign Requests and Register Bucket
 <pre>
