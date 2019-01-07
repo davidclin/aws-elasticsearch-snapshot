@@ -1,0 +1,29 @@
+
+Verification Commands
+
+# after registering a manual snapshot repository
+curl -XGET 'elasticsearch-endpoint-name/_snapshot?pretty'
+
+# after taking snapshot
+curl -XGET 'elasticsearch-domain-endpoint/_snapshot/repository/_all?pretty'
+
+# rename kibana index to restored_.kibana
+curl -XPOST -H 'Content-Type: application/json' 'https://<domain-end-point>/_snapshot/<repository-name>/<snapshot-name>/_restore' -d '
+{
+  "indices": "*",
+  "ignore_unavailable": true,
+  "include_global_state": true,
+  "rename_pattern": ".kibana",
+  "rename_replacement": "restored_.kibana"
+}'
+
+# rename restored_.kibana back to .kibana
+curl -XPOST -H 'Content-Type: application/json' 'https://<domain-end-point>/_reindex' -d '
+{
+  "source": {
+    "index": "restored_.kibana"
+  },
+  "dest": {
+    "index": ".kibana"
+  }
+}'
