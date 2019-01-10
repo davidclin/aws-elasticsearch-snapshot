@@ -1,5 +1,5 @@
 # restore indices.   
-$ curl -XPOST -H 'Content-Type: application/json' 'https://search-test-zo3eitfi4equ6u2kbhicvoa74e.us-west-2.es.amazonaws.com/elasticsearch-snapshot-robotobject-us-west-2/snap-1/_restore' -d '
+$ curl -XPOST -H 'Content-Type: application/json' 'https://search-test-zo3eitfi4equ6u2kbhicvoa74e.us-west-2.es.amazonaws.com/_snapshot/elasticsearch-snapshot-robotobject-snap-1-us-west-2/snap-1/_restore' -d '
 {
   "indices": "*",
   "ignore_unavailable": true,
